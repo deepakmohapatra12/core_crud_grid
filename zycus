@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row" style="margin:30px">
+            <div class="col-md-6">
+                <h3>Filtered Templates(05)</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="form_icon_wrapper">
+                    <div class="top_right_items">
+                            <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+                        </div>
+                    <div class="top_right_items">
+                            <i class="fa fa-filter fa-lg" aria-hidden="true"></i>
+                        </div>
+                    <div class="top_right_items">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 main mt-4">
+                <div class="card" id="select">
+                    <div class="inner_wrapper">
+                        <div class="div_left">
+                            <p class="p_01">Office Reports</p>
+                            <p class="p_02">Auto 7890</p>
+                            <button class="main_button">Preferred</button>
+                        </div>
+                        <div class="div_right">
+                            <i class="fa fa-heart-o" style="color:red;"></i>
+                            <i class="fa fa-download"></i>
+                        </div>
+                    </div>
+
+                    <div class="row mid_row inner_wrapper">
+                        <div class="col-md-4">
+                            <p class="p_03">Source</p>
+                            <p class="p_04">Word Document</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Template for</p>
+                            <p class="p_04">Contract</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Last Modified On</p>
+                            <p class="p_04">14/10/2016</p>
+                        </div>
+                    </div>
+
+                    <div class="row inner_wrapper">
+                        <div class="col-md-12">
+                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
+                                amet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <i class="fa fa-check-circle"></i>
+                </div>
+
+                <div class="overlay" id="overlay">
+                    <div class="icon">
+                        <button class="btn btn-default def">Preview</button>
+                        <button class="btn btn-default def" onClick="addBorder()">Select</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6 main mt-4">
+                <div class="card" id="select">
+                    <div class="inner_wrapper">
+                        <div class="div_left">
+                            <p class="p_01">Office Reports</p>
+                            <p class="p_02">Auto 7890</p>
+                            <button class="main_button">Preferred</button>
+                        </div>
+                        <div class="div_right">
+                            <i class="fa fa-heart-o" style="color:red;"></i>
+                            <i class="fa fa-download"></i>
+                        </div>
+                    </div>
+
+                    <div class="row mid_row inner_wrapper">
+                        <div class="col-md-4">
+                            <p class="p_03">Source</p>
+                            <p class="p_04">Word Document</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Template for</p>
+                            <p class="p_04">Contract</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Last Modified On</p>
+                            <p class="p_04">14/10/2016</p>
+                        </div>
+                    </div>
+
+                    <div class="row inner_wrapper">
+                        <div class="col-md-12">
+                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
+                                amet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <i class="fa fa-check-circle"></i>
+                </div>
+
+                <div class="overlay" id="overlay">
+                    <div class="icon">
+                        <button class="btn btn-default def">Preview</button>
+                        <button class="btn btn-default def" onClick="addBorder()">Select</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main col-md-6 mt-4">
+                <div class="card">
+                    <div class="inner_wrapper">
+                        <div class="div_left">
+                            <p class="p_01">Office Reports</p>
+                            <p class="p_02">Auto 7890</p>
+                            <button class="main_button">Preferred</button>
+                        </div>
+                        <div class="div_right">
+                            <i class="fa fa-heart-o"></i>
+                            <i class="fa fa-download"></i>
+                        </div>
+                    </div>
+
+                    <div class="row mid_row inner_wrapper">
+                        <div class="col-md-4">
+                            <p class="p_03">Source</p>
+                            <p class="p_04">Word Document</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Template for</p>
+                            <p class="p_04">Contract</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Last Modified On</p>
+                            <p class="p_04">14/10/2016</p>
+                        </div>
+                    </div>
+
+                    <div class="row inner_wrapper">
+                        <div class="col-md-12">
+                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
+                                amet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main col-md-6 mt-4">
+                <div class="card">
+                    <div class="inner_wrapper">
+                        <div class="div_left">
+                            <p class="p_01">Office Reports</p>
+                            <p class="p_02">Auto 7890</p>
+                            <button class="main_button">Preferred</button>
+                        </div>
+                        <div class="div_right">
+                            <i class="fa fa-heart-o"></i>
+                            <i class="fa fa-download"></i>
+                        </div>
+                    </div>
+
+                    <div class="row mid_row inner_wrapper">
+                        <div class="col-md-4">
+                            <p class="p_03">Source</p>
+                            <p class="p_04">Word Document</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Template for</p>
+                            <p class="p_04">Contract</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="p_03">Last Modified On</p>
+                            <p class="p_04">14/10/2016</p>
+                        </div>
+                    </div>
+
+                    <div class="row inner_wrapper">
+                        <div class="col-md-12">
+                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
+                                amet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function addBorder() {
+            var element = document.getElementById("select");
+            document.getElementById("overlay").style['display'] = 'none';
+            element.classList.add("otherclass");
+            document.querySelector(".fa-check-circle").style['display'] = 'block';
+            //element1.classList.remove("icon");
+        }
+    </script>
+</body>
+
+</html>
+
+
+
+
+.main{
+    /* border:1px solid #979797; */
+    border-radius: 10px;
+    position: relative;
+}
+
+.fa-check-circle{
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    display: none;
+    color:green;
+}
+
+
+
+.div_left{
+    float:left;
+}
+
+.div_left .p_01{
+    color:#555555;
+    font-size:20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.p_02{
+
+    color:#979797;
+    line-height:5px;
+    font-size:12px
+}
+
+.div_right{
+    float: right;
+}
+
+.mid_row{
+    clear: both;
+}
+
+.main_button{
+    color:#555555;
+    background-color: whitesmoke;
+    border:1px solid grey;
+    border-radius: 3px;
+    
+}
+
+.inner_wrapper{
+    padding:10px;
+}
+
+
+.fa-heart-o{
+    margin-right:5px;
+}
+
+.p_03{
+    color:#555555;
+    font-size:15px;
+}
+
+.p_04{
+    color:#979797;
+    font-size:12px;
+    line-height:0px;
+}
+
+.p_05{
+    color:#555555;
+    font-size:12px;
+    line-height:20px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: #f8fcff;
+  }
+
+  .main:hover .overlay {
+    opacity: 0.9;
+  }
+
+  .icon {
+    color: white;
+    font-size: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+
+  .def{
+      background-color: white;
+      color:#518ff6;
+      border: 1px solid #518ff6;
+  }
+
+ 
+
+  .otherclass{
+    border: 2px solid #31a979;
+} 
+
+.top_right_items{
+    display: inline-block;
+}
+  
+.form_icon_wrapper{
+    float: right;
+}
+  
+  
