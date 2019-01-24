@@ -1,265 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-    <div class="container">
-        <div class="row" style="margin:30px">
-            <div class="col-md-6">
-                <h3>Filtered Templates(05)</h3>
+template-search-component.html
+----------------------------------
+<ng-container>
+    <dew-row>
+        <dew-col [col]="6">
+            <div class="header_wrapper">
+                <h6>Filtered templates({{ allUser.length }})</h6>
             </div>
-            <div class="col-md-6">
-                <div class="form_icon_wrapper">
-                    <div class="top_right_items">
-                            <i class="fa fa-search fa-lg" aria-hidden="true"></i>
-                        </div>
-                    <div class="top_right_items">
-                            <i class="fa fa-filter fa-lg" aria-hidden="true"></i>
-                        </div>
-                    <div class="top_right_items">
-                        <input type="text" class="form-control">
+        </dew-col>
+        <dew-col [col]="6">
+            <div class="right_header_wrapper float-right">
+                <div class="right_header_wrapper float-right">
+                    <form id="demo-2" class="filter_search">
+                      <span class="icon icon-close" *ngIf="cancel===true"></span>
+                        <input type="text" minlength="5" (focus)="cancel=true" (focusout)="cancel=false">
+                    </form>
+                    <dew-btn [type]="'filter'" [isFab]="'true'" [fabIcon]="'filter'" class="filter_search"></dew-btn>
+                    <div class="filter_search ml-4">
+                    <dew-input [placeholder]="'Suggested Templates'" [maxlength]="maxlength" [minlength]="minlength" [required]="required" [(ngModel)]="textModel" (ngModelChange)="modelChange()">
+                    </dew-input>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 main mt-4">
-                <div class="card" id="select">
-                    <div class="inner_wrapper">
-                        <div class="div_left">
-                            <p class="p_01">Office Reports</p>
-                            <p class="p_02">Auto 7890</p>
-                            <button class="main_button">Preferred</button>
-                        </div>
-                        <div class="div_right">
-                            <i class="fa fa-heart-o" style="color:red;"></i>
-                            <i class="fa fa-download"></i>
-                        </div>
+        </dew-col>
+    </dew-row>
+    <dew-row>
+        <dew-col [col]="col" class="main mt-4" *ngFor="let user of allUser;let i = index">
+            <dew-card (click)="toogleMark(i)" #maincard [ngClass]="{'otherclass':user['isSelected']==true}" id="select">
+                <div class="inner_wrapper">
+                    <div class="float-left">
+                        <p class="p_01">Office Contracts</p>
+                        <p class="p_02">Auto 7890</p>
+                        <button class="main_button">Preferred</button>
                     </div>
-
-                    <div class="row mid_row inner_wrapper">
-                        <div class="col-md-4">
-                            <p class="p_03">Source</p>
-                            <p class="p_04">Word Document</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Template for</p>
-                            <p class="p_04">Contract</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Last Modified On</p>
-                            <p class="p_04">14/10/2016</p>
-                        </div>
-                    </div>
-
-                    <div class="row inner_wrapper">
-                        <div class="col-md-12">
-                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
-                                amet</p>
-                        </div>
+                    <div class="float-right">
+                        <!-- <img src="../../../assets/images/common/download.svg" class="img_icon_download"> -->
+                        <dew-icon [icon]="'ic-download'" [size]="'18'" (click)="emitDownloadIndex(i)"></dew-icon>
+                        <i class="icon icon-heart text-16 ml-1"></i>
                     </div>
                 </div>
 
-                <div>
-                    <i class="fa fa-check-circle"></i>
-                </div>
+                <dew-row class="mid_row inner_wrapper">
+                    <dew-col [col]="4">
+                        <p class="p_03">Source</p>
+                        <p class="p_04">{{user.first_name}}</p>
+                    </dew-col>
+                    <dew-col [col]="4">
+                        <p class="p_03">Template for</p>
+                        <p class="p_04">{{user.last_name}}</p>
+                    </dew-col>
+                    <dew-col [col]="4">
+                        <p class="p_03">Last Modified On</p>
+                        <p class="p_04">{{user.id}}</p>
+                    </dew-col>
+                </dew-row>
 
-                <div class="overlay" id="overlay">
-                    <div class="icon">
-                        <button class="btn btn-default def">Preview</button>
-                        <button class="btn btn-default def" onClick="addBorder()">Select</button>
-                    </div>
-                </div>
-            </div>
+                <dew-row class="inner_wrapper">
+                    <dew-col [col]="12">
+                        <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLoremipsum doloramet</p>
+                    </dew-col>
+                </dew-row>
+            </dew-card>
+           
+     
+            <!-- <span class="icon icon-completed" *ngIf="user['isSelected']"></span>   -->
+
+            <span class="checkmark" *ngIf="user['isSelected']">
+                    <div class="checkmark_circle"></div>
+                    <div class="checkmark_stem"></div>
+                    <div class="checkmark_kick"></div>
+                </span>
 
 
-
-            <div class="col-md-6 main mt-4">
-                <div class="card" id="select">
-                    <div class="inner_wrapper">
-                        <div class="div_left">
-                            <p class="p_01">Office Reports</p>
-                            <p class="p_02">Auto 7890</p>
-                            <button class="main_button">Preferred</button>
-                        </div>
-                        <div class="div_right">
-                            <i class="fa fa-heart-o" style="color:red;"></i>
-                            <i class="fa fa-download"></i>
-                        </div>
-                    </div>
-
-                    <div class="row mid_row inner_wrapper">
-                        <div class="col-md-4">
-                            <p class="p_03">Source</p>
-                            <p class="p_04">Word Document</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Template for</p>
-                            <p class="p_04">Contract</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Last Modified On</p>
-                            <p class="p_04">14/10/2016</p>
-                        </div>
-                    </div>
-
-                    <div class="row inner_wrapper">
-                        <div class="col-md-12">
-                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
-                                amet</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <i class="fa fa-check-circle"></i>
-                </div>
-
-                <div class="overlay" id="overlay">
-                    <div class="icon">
-                        <button class="btn btn-default def">Preview</button>
-                        <button class="btn btn-default def" onClick="addBorder()">Select</button>
-                    </div>
+            <div class="overlay" id="overlay" #overlay [ngClass]="{'overlay_con':user['isSelected']==true}">
+                <div class="over_lay_btn">
+                    <dew-btn [display]="'Preview'" type="line"></dew-btn>
+                    <dew-btn [display]="'Select'" type="line" (click)="toogleMark(i)"></dew-btn>
                 </div>
             </div>
+        </dew-col>
+    </dew-row>
+</ng-container>
 
 
-            <div class="main col-md-6 mt-4">
-                <div class="card">
-                    <div class="inner_wrapper">
-                        <div class="div_left">
-                            <p class="p_01">Office Reports</p>
-                            <p class="p_02">Auto 7890</p>
-                            <button class="main_button">Preferred</button>
-                        </div>
-                        <div class="div_right">
-                            <i class="fa fa-heart-o"></i>
-                            <i class="fa fa-download"></i>
-                        </div>
-                    </div>
-
-                    <div class="row mid_row inner_wrapper">
-                        <div class="col-md-4">
-                            <p class="p_03">Source</p>
-                            <p class="p_04">Word Document</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Template for</p>
-                            <p class="p_04">Contract</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Last Modified On</p>
-                            <p class="p_04">14/10/2016</p>
-                        </div>
-                    </div>
-
-                    <div class="row inner_wrapper">
-                        <div class="col-md-12">
-                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
-                                amet</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="main col-md-6 mt-4">
-                <div class="card">
-                    <div class="inner_wrapper">
-                        <div class="div_left">
-                            <p class="p_01">Office Reports</p>
-                            <p class="p_02">Auto 7890</p>
-                            <button class="main_button">Preferred</button>
-                        </div>
-                        <div class="div_right">
-                            <i class="fa fa-heart-o"></i>
-                            <i class="fa fa-download"></i>
-                        </div>
-                    </div>
-
-                    <div class="row mid_row inner_wrapper">
-                        <div class="col-md-4">
-                            <p class="p_03">Source</p>
-                            <p class="p_04">Word Document</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Template for</p>
-                            <p class="p_04">Contract</p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="p_03">Last Modified On</p>
-                            <p class="p_04">14/10/2016</p>
-                        </div>
-                    </div>
-
-                    <div class="row inner_wrapper">
-                        <div class="col-md-12">
-                            <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit
-                                amet</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-        function addBorder() {
-            var element = document.getElementById("select");
-            document.getElementById("overlay").style['display'] = 'none';
-            element.classList.add("otherclass");
-            document.querySelector(".fa-check-circle").style['display'] = 'block';
-            //element1.classList.remove("icon");
-        }
-    </script>
-</body>
-
-</html>
-
-
-
-
+template-search-component.css
+-------------------------------
 .main{
     /* border:1px solid #979797; */
     border-radius: 10px;
     position: relative;
+    z-index: 1;
 }
 
-.fa-check-circle{
-    position: absolute;
-    top: -5px;
-    right: 10px;
-    display: none;
-    color:green;
-}
-
-
-
-.div_left{
-    float:left;
-}
-
-.div_left .p_01{
+.p_01{
     color:#555555;
     font-size:20px;
     font-family: Arial, Helvetica, sans-serif;
 }
-
 .p_02{
 
     color:#979797;
@@ -267,13 +103,9 @@
     font-size:12px
 }
 
-.div_right{
-    float: right;
-}
-
-.mid_row{
-    clear: both;
-}
+// .mid_row{
+//     clear: both;
+// }
 
 .main_button{
     color:#555555;
@@ -284,30 +116,72 @@
 }
 
 .inner_wrapper{
-    padding:10px;
+    padding:15px;
 }
 
+.p_01{
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #333333;
+}
 
-.fa-heart-o{
-    margin-right:5px;
+.p_02{
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
 }
 
 .p_03{
-    color:#555555;
-    font-size:15px;
+
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
 }
 
 .p_04{
-    color:#979797;
-    font-size:12px;
-    line-height:0px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #333333;
+    line-height:1px;
 }
 
 .p_05{
-    color:#555555;
-    font-size:12px;
-    line-height:20px;
+    font-family: Roboto;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.38;
+  letter-spacing: normal;
+  color: #333333;
 }
+
+.img_icon_download{
+    height:16px!important;
+    width:20px!important;
+    margin-bottom: 3px!important;
+}
+
 
 .overlay {
     position: absolute;
@@ -326,7 +200,7 @@
     opacity: 0.9;
   }
 
-  .icon {
+  .over_lay_btn {
     color: white;
     font-size: 100px;
     position: absolute;
@@ -344,10 +218,12 @@
       border: 1px solid #518ff6;
   }
 
- 
+ .overlay_con{
+   display: none;
+ }
 
   .otherclass{
-    border: 2px solid #31a979;
+    border: 2px solid #31a979!important;
 } 
 
 .top_right_items{
@@ -357,5 +233,279 @@
 .form_icon_wrapper{
     float: right;
 }
-  
-  
+
+.filter_search{
+    display: inline-block;
+}
+
+
+//expand search icon css
+input {
+	outline: none;
+}
+input[type=text] {
+	-webkit-appearance: textfield;
+	-webkit-box-sizing: content-box;
+	font-family: inherit;
+	font-size: 100%;
+}
+
+input[type=text] {
+	background: #ffffff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+	border: solid 1px #ccc;
+	padding: 9px 10px 9px 32px;
+    width: 55px;
+    margin-right:15px;
+	
+	-webkit-border-radius: 10em;
+	-moz-border-radius: 10em;
+	border-radius: 10em;
+	
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	transition: all .5s;
+}
+input[type=text]:focus {
+	width: 130px;
+	border-color: grey;
+	
+	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+	box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+#demo2{
+    position: relative;
+}
+
+
+input:-moz-placeholder {
+	color: #999;
+}
+input::-webkit-input-placeholder {
+	color: #999;
+}
+
+/* Demo 2 */
+#demo-2 input[type=text] {
+    width: 15px;
+    padding-left: 10px;
+    color: transparent;
+    cursor: pointer;
+    height: 16px;
+}
+
+#demo-2 input[type=text]:focus {
+	width: 130px;
+	padding-left: 32px;
+	color: #000;
+	cursor: auto;
+}
+#demo-2 input[type=text]:focus {
+	width: 130px;
+	padding-left: 32px;
+	color: #000;
+	cursor: auto;
+}
+#demo-2 input:-moz-placeholder {
+	color: transparent;
+}
+#demo-2 input::-webkit-input-placeholder {
+	color: transparent;
+}
+//expand search icon css
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+
+
+// .icon-completed{
+//     position: absolute;
+//     top: -9px;
+//     right: 10px;
+//     display: inline-block;
+//     border: 0px;
+//     color: #31a979;
+// }
+
+
+//check mark custom css 
+.checkmark {
+    display:inline-block;
+    width: 22px;
+    height:22px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+    position: absolute;
+    top: -9px;
+    right: 10px;
+}
+
+.checkmark_circle {
+    position: absolute;
+    width:22px;
+    height:22px;
+    background-color: #31a979;
+    border-radius:11px;
+    left:0;
+    top:0;
+}
+
+.checkmark_stem {
+    position: absolute;
+    width:3px;
+    height:9px;
+    background-color:#fff;
+    left:11px;
+    top:6px;
+}
+
+.checkmark_kick {
+    position: absolute;
+    width:3px;
+    height:3px;
+    background-color:#fff;
+    left:8px;
+    top:12px;
+}
+
+//check mark custom css end
+
+.icon-close{
+    display: block;
+    position: absolute;
+    margin-left: 150px;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+template-search-component.ts
+----------------------------------
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AUTH_API } from '@dewdrops/globals';
+import { LanguageTranslateService, RestClientService, UserService } from '@dewdrops/services';
+import { each } from 'lodash/index';
+import { TranslateService } from 'ng2-translate';
+import { Observable } from 'rxjs/Observable';
+
+
+@Component({
+    selector: 'dew-template-search',
+    templateUrl: './template-search.component.html',
+    styleUrls: ['./template-search.component.scss'],
+    providers: []
+})
+export class TemplateSearchComponent implements OnInit {
+    @Input() col = 6;
+    @Output() download = new EventEmitter();
+    allUser = [
+        {
+            id: "Word Document",
+            first_name: "Contract",
+            last_name: "14/01/2016",
+            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"
+        },
+        {
+            id: "Word Document",
+            first_name: "Contract",
+            last_name: "14/01/2016",
+            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg"
+        },
+        {
+            id: "Word Document",
+            first_name: "Contract",
+            last_name: "14/01/2016",
+            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
+        },
+        {
+            id: "Word Document",
+            first_name: "Contract",
+            last_name: "14/01/2016",
+            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
+        },
+        {
+            id: "Word Document",
+            first_name: "Contract",
+            last_name: "14/01/2016",
+            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
+        },
+        {
+            id: "Word Document",
+            first_name: "Contract",
+            last_name: "14/01/2016",
+            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
+        }
+    ];
+    cancel =false;
+
+    constructor(private http: HttpClient) { }
+    ngOnInit() {}
+
+    toogleMark(index) {
+        console.log(index);
+        for (let i = 0; i < this.allUser.length; i++) {
+            if(i===index){
+                this.allUser[i]['isSelected'] = this.allUser[i]['isSelected'] === true ? false : true;         
+            }else{
+                this.allUser[i]['isSelected'] = false;         
+            }
+        }
+    }
+    emitDownloadIndex(i){
+        this.download.emit(i);
+    }
+}
+
+
+docs-template-compontnt-search.html
+--------------------------------------
+<dew-section [heading]="'Template Search'">
+    <dew-section-body>
+        <dew-tabset [type]="'main'">
+            <dew-tab [heading]="'@working'" [id]="'atTab1'">
+                <dew-template-search [col]="6" (download)="getDownload($event)"></dew-template-search>
+            </dew-tab>
+            <dew-tab [heading]="'@input'" [id]="'atTab2'">
+            </dew-tab>
+            <dew-tab [heading]="'@sample code'" [id]="'atTab4'">
+            </dew-tab>
+        </dew-tabset>
+    </dew-section-body>
+</dew-section>
+
+docs-template-component-search.ts
+-----------------------------------
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'dew-docs-templatesearch',
+  templateUrl: './docs-template-search.component.html',
+  styleUrls: ['./docs-template-search.component.scss']
+})
+export class DocsTemplateSearchComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+  getDownload(index){
+    console.log(index);
+    alert(index);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
