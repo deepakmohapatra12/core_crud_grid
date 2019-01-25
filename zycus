@@ -1,84 +1,95 @@
 template-search-component.html
 ----------------------------------
 <ng-container>
-    <dew-row>
-        <dew-col [col]="6">
-            <div class="header_wrapper">
-                <h6>Filtered templates({{ allUser.length }})</h6>
-            </div>
-        </dew-col>
-        <dew-col [col]="6">
-            <div class="right_header_wrapper float-right">
-                <div class="right_header_wrapper float-right">
-                    <form id="demo-2" class="filter_search">
-                      <span class="icon icon-close" *ngIf="cancel===true"></span>
-                        <input type="text" minlength="5" (focus)="cancel=true" (focusout)="cancel=false">
-                    </form>
-                    <dew-btn [type]="'filter'" [isFab]="'true'" [fabIcon]="'filter'" class="filter_search"></dew-btn>
-                    <div class="filter_search ml-4">
-                    <dew-input [placeholder]="'Suggested Templates'" [maxlength]="maxlength" [minlength]="minlength" [required]="required" [(ngModel)]="textModel" (ngModelChange)="modelChange()">
-                    </dew-input>
+    <a (click)="card=true">View Templates</a>
+    <div>
+        <dew-row>
+            <dew-col [col]="6">
+                <div [className]="'header_wrapper'">
+                    <h6>Filtered templates({{ records.length }})</h6>
+                </div>
+            </dew-col>
+            <dew-col [col]="6">
+                <div [className]="'right_header_wrapper float-right'">
+                    <div [className]="'right_header_wrapper float-right'">
+                        <div [className]="'filter_search ml-2'">
+                            <dew-input [placeholder]="'Suggested Templates'" [maxlength]="maxlength" [minlength]="minlength"
+                                [required]="required" [(ngModel)]="textModel" (ngModelChange)="modelChange()">
+                            </dew-input>
+                        </div>
+                        <form id="demo-2" class="filter_search">
+                            <span class="icon icon-close" *ngIf="cancel===true" (click)="contractModel=''"></span>
+                            <input type="text" class="form-control" name="search" [(ngModel)]="contractModel" (focus)="cancel=true"
+                                (focusout)="cancel=false" (keyup)="getContractsTemplate()">
+                        </form>
                     </div>
                 </div>
-            </div>
-        </dew-col>
-    </dew-row>
-    <dew-row>
-        <dew-col [col]="col" class="main mt-4" *ngFor="let user of allUser;let i = index">
-            <dew-card (click)="toogleMark(i)" #maincard [ngClass]="{'otherclass':user['isSelected']==true}" id="select">
-                <div class="inner_wrapper">
-                    <div class="float-left">
-                        <p class="p_01">Office Contracts</p>
-                        <p class="p_02">Auto 7890</p>
-                        <button class="main_button">Preferred</button>
-                    </div>
-                    <div class="float-right">
-                        <!-- <img src="../../../assets/images/common/download.svg" class="img_icon_download"> -->
-                        <dew-icon [icon]="'ic-download'" [size]="'18'" (click)="emitDownloadIndex(i)"></dew-icon>
-                        <i class="icon icon-heart text-16 ml-1"></i>
-                    </div>
-                </div>
+            </dew-col>
+        </dew-row>
+        <dew-row>
+            <dew-col [col]="templateConfigurable?.cardNos" class="main mt-4" *ngFor="let user of records|slice:0:onfirstLoad;let i = index">
+                <dew-card (click)="toogleMark(i)" [ngClass]="{'otherclass':user['isSelected']==true}">
+                    <dew-card-header>
+                        <div [className]="'inner_wrapper'">
+                            <div class="float-left">
+                                <p [className]="'p_01'">Office Contracts</p>
+                                <p [className]="'p_01'">Auto 7890</p>
+                                <button [className]="'main_button'">Preferred</button>
+                            </div>
+                            <div [className]="'float-right'" *ngIf="templateConfigurable?.action">
+                                <!-- <img src="../../../assets/images/common/download.svg" class="img_icon_download"> -->
+                                <dew-icon [icon]="'ic-download'" [size]="'18'" [className]="'download_curser'" (click)="emitDownloadIndex(i)"></dew-icon>
+                                <i [className]="'icon icon-heart text-16 ml-1 download_curser'" (click)="emitLikeIndex(i)"></i>
 
-                <dew-row class="mid_row inner_wrapper">
-                    <dew-col [col]="4">
-                        <p class="p_03">Source</p>
-                        <p class="p_04">{{user.first_name}}</p>
-                    </dew-col>
-                    <dew-col [col]="4">
-                        <p class="p_03">Template for</p>
-                        <p class="p_04">{{user.last_name}}</p>
-                    </dew-col>
-                    <dew-col [col]="4">
-                        <p class="p_03">Last Modified On</p>
-                        <p class="p_04">{{user.id}}</p>
-                    </dew-col>
-                </dew-row>
-
-                <dew-row class="inner_wrapper">
-                    <dew-col [col]="12">
-                        <p class="p_05">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLoremipsum doloramet</p>
-                    </dew-col>
-                </dew-row>
-            </dew-card>
-           
-     
-            <!-- <span class="icon icon-completed" *ngIf="user['isSelected']"></span>   -->
-
-            <span class="checkmark" *ngIf="user['isSelected']">
+                            </div>
+                        </div>
+                    </dew-card-header>
+                    <dew-card-body>
+                        <dew-row class="mid_row inner_wrapper" *ngIf="templateConfigurable?.midColShow">
+                            <dew-col [col]="templateConfigurable?.cardCols">
+                                <p [className]="'p_03'">Source</p>
+                                <p [className]="'p_04'">{{user.eventName}}</p>
+                            </dew-col>
+                            <dew-col [col]="templateConfigurable?.cardCols">
+                                <p [className]="'p_03'">Template for</p>
+                                <p [className]="'p_04'">{{user.ownerName}}</p>
+                            </dew-col>
+                            <dew-col [col]="templateConfigurable?.cardCols">
+                                <p [className]="'p_03'">Last Modified On</p>
+                                <p [className]="'p_04'">{{user.creationDate}}</p>
+                            </dew-col>
+                        </dew-row>
+                    </dew-card-body>
+                    <dew-card-footer *ngIf="templateConfigurable?.lowerColShow">
+                        <dew-row [className]="'inner_wrapper'">
+                            <dew-col [col]="6">
+                                <p [className]="'p_03'">Clark SinClair</p>
+                                <p [className]="'p_04'">{{user.creationDate}}</p>
+                            </dew-col>
+                            <dew-col [col]="6">
+                                <div class="float-right">
+                                    <p [className]="'p_05'">95999444</p>
+                                </div>
+                            </dew-col>
+                        </dew-row>
+                    </dew-card-footer>
+                </dew-card>
+                <!-- <span class="icon icon-completed" *ngIf="user['isSelected']"></span>   -->
+                <span class="checkmark" *ngIf="user['isSelected']">
                     <div class="checkmark_circle"></div>
                     <div class="checkmark_stem"></div>
                     <div class="checkmark_kick"></div>
                 </span>
-
-
-            <div class="overlay" id="overlay" #overlay [ngClass]="{'overlay_con':user['isSelected']==true}">
-                <div class="over_lay_btn">
-                    <dew-btn [display]="'Preview'" type="line"></dew-btn>
-                    <dew-btn [display]="'Select'" type="line" (click)="toogleMark(i)"></dew-btn>
+                <div [className]="'overlay'" [ngClass]="{'overlay_con':user['isSelected']==true}">
+                    <div [className]="'over_lay_btn'">
+                        <dew-btn [display]="'Preview'" type="line" (click)="emitPreviewIndex(i)"></dew-btn>
+                        <dew-btn [display]="'Select'" type="line" (click)="toogleMark(i)"></dew-btn>
+                    </div>
                 </div>
-            </div>
-        </dew-col>
-    </dew-row>
+            </dew-col>
+        </dew-row>
+        <dew-btn [className]="'btn_cent'" [display]="'View More'" type="view" (click)="onfirstLoad=onfirstLoad+4" *ngIf="(records.length>=onfirstLoad)"></dew-btn>
+    </div>
 </ng-container>
 
 
@@ -113,6 +124,10 @@ template-search-component.css
     border:1px solid grey;
     border-radius: 3px;
     
+}
+
+.download_curser {
+    cursor:pointer
 }
 
 .inner_wrapper{
@@ -383,16 +398,30 @@ input::-webkit-input-placeholder {
     margin-top: 12px;
 }
 
+.btn_cent{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top:10px;
+
+}
+
+
+  
+
+
 template-search-component.ts
 ----------------------------------
 import { HttpClient, HttpEventType, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AUTH_API } from '@dewdrops/globals';
-import { LanguageTranslateService, RestClientService, UserService } from '@dewdrops/services';
+import { LanguageTranslateService, RestClientService, UserService, APIClientService } from '@dewdrops/services';
 import { each } from 'lodash/index';
 import { TranslateService } from 'ng2-translate';
 import { Observable } from 'rxjs/Observable';
-
+import { CollectionFactory } from 'dd-common/dewdrops/core/factories/collection/collection.factory';
+import { TemplateSearchModel } from './templatesearch.model';
+import { CriteriaInterface } from '@dewdrops/interfaces';
 
 @Component({
     selector: 'dew-template-search',
@@ -401,74 +430,106 @@ import { Observable } from 'rxjs/Observable';
     providers: []
 })
 export class TemplateSearchComponent implements OnInit {
-    @Input() col = 6;
+
+
+    //default number of loading components
+    onfirstLoad = 4;
+
+    //for search icon issue
+    cancel = false;
+    card = true;
+    // @Input() col = 6;
+    // @Input() grid = 4;
+
+    @Input() templateConfigurable = {
+        cardNos: 6,
+        cardCols: 4,
+        action: false,
+        midColShow: false,
+        lowerColShow: false
+    }
+    contractModel: string;
+    @Output() searchedText = new EventEmitter();
     @Output() download = new EventEmitter();
-    allUser = [
-        {
-            id: "Word Document",
-            first_name: "Contract",
-            last_name: "14/01/2016",
-            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"
-        },
-        {
-            id: "Word Document",
-            first_name: "Contract",
-            last_name: "14/01/2016",
-            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg"
-        },
-        {
-            id: "Word Document",
-            first_name: "Contract",
-            last_name: "14/01/2016",
-            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
-        },
-        {
-            id: "Word Document",
-            first_name: "Contract",
-            last_name: "14/01/2016",
-            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
-        },
-        {
-            id: "Word Document",
-            first_name: "Contract",
-            last_name: "14/01/2016",
-            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
-        },
-        {
-            id: "Word Document",
-            first_name: "Contract",
-            last_name: "14/01/2016",
-            avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
-        }
-    ];
-    cancel =false;
+    @Output() like = new EventEmitter();
+    @Output() preview = new EventEmitter();
 
-    constructor(private http: HttpClient) { }
-    ngOnInit() {}
 
+    constructor() { }
+
+    ngOnInit() {
+
+    }
+
+
+    records = [
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 2010174766 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 2010174765 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "Edited name", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017458 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017475 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 2010174766 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 2010174765 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017476 },
+        { eventName: "Edited name", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017458 },
+        { eventName: "OLA", ownerName: "Sharma Navin", creationDate: "2018-12-28", eventType: "RFI", eventId: 201017475 }
+    ]
+
+
+    // single mark contract card
     toogleMark(index) {
         console.log(index);
-        for (let i = 0; i < this.allUser.length; i++) {
-            if(i===index){
-                this.allUser[i]['isSelected'] = this.allUser[i]['isSelected'] === true ? false : true;         
-            }else{
-                this.allUser[i]['isSelected'] = false;         
+        for (let i = 0; i < this.records.length; i++) {
+            if (i === index) {
+                this.records[i]['isSelected'] = this.records[i]['isSelected'] === true ? false : true;
+            } else {
+                this.records[i]['isSelected'] = false;
             }
         }
     }
-    emitDownloadIndex(i){
+
+    // download the contract card
+    emitDownloadIndex(i) {
         this.download.emit(i);
+    }
+
+    // like the contract card
+    emitLikeIndex(i) {
+        this.like.emit(i);
+    }
+
+    // previewing the contract card
+    emitPreviewIndex(i) {
+        this.preview.emit(i);
     }
 }
 
 
-docs-template-compontnt-search.html
---------------------------------------
+docs-template-component-search.html
+-------------------------------------------
 <dew-section [heading]="'Template Search'">
     <dew-section-body>
         <dew-tabset [type]="'main'">
             <dew-tab [heading]="'@working'" [id]="'atTab1'">
-                <dew-template-search [col]="6" (download)="getDownload($event)"></dew-template-search>
+                <dew-template-search
+                 [templateConfigurable]=templateConfigure
+                 (searchedText)="getContracts($event)"
+                 (download)="getDownload($event)"
+                 (like)="getLike($event)"
+                 (preview)="getPreviewContract($event)">
+
+                </dew-template-search>
+                
             </dew-tab>
             <dew-tab [heading]="'@input'" [id]="'atTab2'">
             </dew-tab>
@@ -478,9 +539,15 @@ docs-template-compontnt-search.html
     </dew-section-body>
 </dew-section>
 
+
+
 docs-template-component-search.ts
 -----------------------------------
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CollectionFactory } from '@dewdrops/factories';
+import { APIClientService } from '@dewdrops/services';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'dew-docs-templatesearch',
@@ -489,13 +556,63 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocsTemplateSearchComponent implements OnInit {
 
-  constructor() { }
+  testData: any[];
+  dataSource: CollectionFactory;
+
+  constructor(public _apiClient: APIClientService) {
+    this.dataSource = new CollectionFactory('/api/a/isource/events/templates', _apiClient);
+    this.dataSource.count(20);
+  }
+
+  //card columns grid , inside card column grid and (like and download actions) object
+  templateConfigure = {
+    cardNos: 6,
+    cardCols: 4,
+    action: true,
+    midColShow:true,
+    lowerColShow:true
+  }
+
+  //dummy data
+  allUser: [
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174766 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174765 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174764 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174763 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174762 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174761 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174760 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174760 },
+    { eventName: 'Edited name', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174758 },
+    { eventName: 'OLA', ownerName: 'Sharma Navin', creationDate: '2018-12-28', eventType: 'RFI', eventId: 2010174757 }
+  ]
 
   ngOnInit() {
   }
-  getDownload(index){
+
+  //download button
+  getDownload(index) {
     console.log(index);
     alert(index);
+  }
+
+  //like button
+  getLike(index) {
+    console.log(index);
+    alert(index);
+  }
+
+
+  //preview button
+  getPreviewContract(index) {
+    console.log(index);
+    alert(index);
+  }
+
+
+  //contract button
+  getContracts(data) {
+    console.log(data);
   }
 }
 
