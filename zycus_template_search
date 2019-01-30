@@ -89,7 +89,9 @@ template.html
                 </dew-col>
             </dew-row>
             <dew-btn [className]="'btn_cent'" [display]="'View More'" type="view" (click)="onfirstLoad=onfirstLoad+4" *ngIf="(livedataList.length>=onfirstLoad)"></dew-btn>
-        </div>
+            <dew-btn [className]="'btn_cent'" [display]="'Fetch Data'" type="view" *ngIf="livedataList" (click)="fetchValues()"></dew-btn>
+
+	</div>
     </ng-container>
     
     
@@ -271,13 +273,8 @@ input::-webkit-input-placeholder {
 template.ts
 -------------
 
-import { HttpClient, HttpEventType, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AUTH_API } from '@dewdrops/globals';
-import { LanguageTranslateService, RestClientService, UserService, APIClientService } from '@dewdrops/services';
-import { each } from 'lodash/index';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
-import { Observable } from 'rxjs/Observable';
 import { CollectionFactory } from 'dd-common/dewdrops/core/factories/collection/collection.factory';
 import { TemplateSearchModel } from './templatesearch.model';
 import { CriteriaInterface } from '@dewdrops/interfaces';
@@ -290,21 +287,23 @@ import { CriteriaInterface } from '@dewdrops/interfaces';
 })
 export class TemplateSearchComponent implements OnInit {
 
+
+    //for gettting data of each card on fetch button function
+    tempData:any;
+
+
+
     searchedText = '';
-	
-	    fill = '';
-
-
+    fill = '';
 
     //default number of loading template cards
-    onfirstLoad = 4;
-
+    onfirstLoad = 10;
     //for search icon issue
     cancel = false;
     card = true;
-    // @Input() col = 6;
-    // @Input() grid = 4;
+    contractModel: string;
 
+    //for configuration of inner card elements
     @Input() templateConfigurable = {
         cardNos: 6,
         cardCols: 4,
@@ -312,57 +311,57 @@ export class TemplateSearchComponent implements OnInit {
         midColShow: false,
         lowerColShow: false
     }
-    contractModel: string;
-    // @Input() records=[];//records array fro docs-template-search.component.ts
-    // @Output() searchedText = new EventEmitter();//for template card search action
+
+
     @Output() download = new EventEmitter();//for download button action
     @Output() like = new EventEmitter();//for like button action
     @Output() preview = new EventEmitter();//preview button action
+    //index: any;
 
-    constructor() { }
+    constructor(private _translate: TranslateService) { }
 
     ngOnInit() {
         this.onSearch('');
     }
 
-    // single mark contract card
+    //check mark template card
     toogleMark(index) {
-        console.log(index);
         for (let i = 0; i < this.livedataList.length; i++) {
             if (i === index) {
                 this.livedataList[i]['isSelected'] = this.livedataList[i]['isSelected'] === true ? false : true;
             } else {
                 this.livedataList[i]['isSelected'] = false;
             }
+
         }
+
+        //for getting the test data on click of fetch data button
+        if (this.livedataList[index]['isSelected'] === true) {
+            this.tempData = this.livedataList[index];
+        } else if (this.livedataList[index]['isSelected'] === false) {
+            this.tempData = '';
+        }
+        console.log(index, this.livedataList[index]);
+
     }
 
-    // download the contract card
+    //download the template card
     emitDownloadIndex(i) {
         this.download.emit(i);
     }
 
-    // like the contract card
+    //like the template card
     emitLikeIndex(i) {
-        // if(this.livedataList[i]['isLike'] === true){
-        //     this.livedataList[i]['isLike'] = false
-        // }
-        // else{
-        //     this.livedataList[i]['isLike'] = true;
-        // }
-        this.livedataList[i]['isLike'] = this.livedataList[i]['isLike'] === true ? false: true;
+        this.livedataList[i]['isLike'] = this.livedataList[i]['isLike'] === true ? false : true;
         this.like.emit(i);
     }
 
-    // previewing the contract card
+    //previewing the template card
     emitPreviewIndex(i) {
         this.preview.emit(i);
     }
 
-
     //search operation content will go here
-
-
     dataList: TemplateSearchModel[];
     livedataList: TemplateSearchModel[];
     @Input()
@@ -372,7 +371,6 @@ export class TemplateSearchComponent implements OnInit {
 
     public _records: Array<TemplateSearchModel> | CollectionFactory<TemplateSearchModel>;
     @Input() set records(value: Array<TemplateSearchModel> | CollectionFactory<TemplateSearchModel>) {
-        console.log('values', value);
         this._records = value;
         if (this._records instanceof Array) {
             this.dataList = this._records.map(
@@ -385,6 +383,7 @@ export class TemplateSearchComponent implements OnInit {
         }
     }
 
+    //for transform the search results and show in corresponding card
     public transform(transformFnArgs: any) {
         if (this.transformFn) {
             return this.transformFn(transformFnArgs);
@@ -394,11 +393,11 @@ export class TemplateSearchComponent implements OnInit {
                 ownerName: transformFnArgs.ownerName,
                 creationDate: transformFnArgs.creationDate,
                 eventType: transformFnArgs.eventType,
-
             };
         }
     }
 
+    //filter data on searched keyword
     onSearch(searchedText: string) {
         if (this._records instanceof Array) {
             this.livedataList = this.search(searchedText);
@@ -446,8 +445,15 @@ export class TemplateSearchComponent implements OnInit {
     }
 
     getDisplayName(value) {
-        return value.eventName
+        return value.eventName;
     }
+
+
+    //testing fetchdata button handler
+    fetchValues() {
+        console.log(this.tempData)
+    }
+
 
 }
 
