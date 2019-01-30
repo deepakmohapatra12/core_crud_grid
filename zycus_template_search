@@ -451,7 +451,13 @@ export class TemplateSearchComponent implements OnInit {
 
     //testing fetchdata button handler
     fetchValues() {
-        console.log(this.tempData)
+        //console.log(this.tempData)
+        if(this.tempData){
+            console.log(this.tempData);
+        }else if(!this.tempData){
+            //console.log("kkfk");
+            alert("Please select a card!")
+        }
     }
 
 
