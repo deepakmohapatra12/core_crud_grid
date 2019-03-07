@@ -1,3 +1,11 @@
+info add bu unit
+----------------------
+Everything you need to know about the ExpressionChangedAfterItHasBeenCheckedError error
+Everything you need to know about change detection in Angular
+
+Expression has changed after it was checked. Previous value: 'templateRefs: undefined' angular 6
+
+
 template.html
 ------------------
 <ng-container>
