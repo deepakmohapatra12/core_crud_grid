@@ -1,0 +1,208 @@
+I)-----for creating a new component and integrate in common-ui-dewdrops--------------------
+-------------------------------------------------------------------------------------------------
+Step-1
+-> create a common component which is assign to you(tagCommonComponent/templateCommonComponent)
+-> Folder Structure :- dd-common/dewdrops/common/
+Step-2 
+->Define module for that component.(tagCommonComponentModule/templateCommonComponentModule) (ng g m templateCommonComponentModule)
+Step-3
+->make a entry in index.ts
+(sample)
+export { DelegatePopupComponent } from './delegate-popup/delegate-popup.component';
+export * from './delegate-popup/delegate-popup.module';
+Step-4
+->navigate to docs.
+->create a docs component for given component.
+step-5
+->go to "src\dd-common\dewdrops\dewdrops.component.ts"
+->make a entry in list.
+step-6
+->got to "src\dd-common\dewdrops\dewdrops-routing.module.ts"
+->define a roue
+->import module which is used in your docs component.
+------import main logical component respective module import in dewdrops-routing.module.ts
+->declare docs component in declaration part.
+
+
+point)while working on common component for hardcoded value follow the instructions below
+------------------------------------------------------------------------------------------
+For hardcoded value
+----------------------
+1) go to src/assets.i18n/en.json
+2) write the meaningful tags like --   "DEW_DROPS_COMMON_TEMPLATE_SEARCH_CREATED_ON":"Created_On"
+3)go to the corresponding component module like (templatesearch.module.ts) and import the ---import { TranslateModule } from 'ng2-translate';--
+4) go to the corresponding component like (templatesearch.component.ts) and import the     constructor(private _translate: TranslateService) { } and also import it.
+5)In the place of hardcoded value change that to the---- {{"DEW_DROPS_COMMON_TEMPLATE_SEARCH_CREATED_ON" | translate}} ----
+
+
+For common component selectors like input,autocomplete,dropdown or anything else
+----------------------------------------------------------------------------------
+1)if we are not using any [maxlength] or [minLength] or [required] or [textModel] or [modelChange] then remove it .
+2)if we are using all these things then go to the component.ts file and write with @Input decorator.
+
+
+
+II)Swagger api checking methods
+------------------------------------
+
+1)http://dev.dewdropsbff.zycus.net/ 
+  http://dev.dewdropsbff.zycus.net/api/swagger.json 
+2)navin.imanage@zycus.com 
+ Pass@123  
+
+
+III)git gub details
+--------------------------
+first pull from master branch
+1) git checkout master
+2) git pull
+
+1)go to the ddcommon folder and open the git bash there
+2) And start writting the command .....<git status>
+3)for creating a branch <git checkout -b DDCC-18>
+4)git add .
+5)git commit
+6)git push or git push --set-upstream origin DDCC-18
+7)git checkout -b branchname_as_ticket_number
+8)git checkout master
+9)git pull
+10)git checkout DDCC-18
+11)git merge
+12)git status
+13)git push
+14)git push --set-upstream origin DDCC-18
+15)if local reference error have obtained while doing pull from master then run the below command
+----------------------------
+git gc --prune=now
+---------------------------
+
+16)Unstage a specific file ---- git reset HEAD filepath/filename.extension
+
+
+After getting confliction go to the master
+
+git checkout master
+git pull
+git checkout DDCC-18
+git merge master
+
+save all the conflicted files
+
+git checkout DDCC_18
+git add .
+git commit -m "resolve the confliction"
+git push
+
+
+
+
+git submodule update --remote
+
+
+
+
+
+IV)visual studio code shortcuts
+-----------------------------------
+1) Fn + Alt + up arrow key or down arrow key -----for shifting the lines up and down
+
+
+
+
+
+
+https://stackblitz.com/edit/angular-component-accordion-example?file=app%2Fcomponents%2Faccordion%2Faccordion.component.ts
+
+http://training.fabiobiondi.io/2017/07/10/create-an-accordion-component-in-angular-parent-children-communication/
+
+https://stackblitz.com/edit/angular-xovwu7?file=app%2Fapp.component.ts
+
+
+
+
+for production dev check
+---------------------------
+http://icontract-dev.zycus.net:83/#/home/authoring 4028823d69c3f9b60169c9f1e5750270
+
+
+ICONTRACT
+-----------
+1)localhost:4204
+2)bipin.anghan01101988@zycus.com
+  Bipin@007 
+
+QCSetup - 
+https://login-qcvw.zycus.net/sso/login
+salesforce.user@zycus.com 
+Pass@123456 
+  
+gyanesh.kumar@zycus.com 
+Pass@123 
+ 
+
+ 
+https://login-qcvw.zycus.net/sso/login 
+icontract4@zycus.com  
+DoEoMo5$9  
+ 
+
+
+
+3)http://local.icontract.zycus.net:4204/#/repository
+
+ //"target": "http://10.60.3.27:3000",
+//yogesh        "target": "http://10.30.30.194:3000",
+
+
+
+
+//FOR CONVERTING IF ELSE TERNARY TO NORMAL IF ELSE
+http://converter.website-dev.eu/
+
+
+for confluence page of icontract team
+-----------------------------------------
+https://pdtzycus.atlassian.net/wiki/spaces/DDBA/pages/764739667/iContract+DewDrops+-+Sprint+Planning 
+team_dewdrops@zycus.com
+Password - General!12345% 
+
+
+
+
+tip 1) to get the hover text on input box ---- [attr.title]="createNewForm.get('title')?.value"
+	//createNewForm is the formgroup name and title is the formControlName
+
+
+
+"Folder"
+
+      <icontract-user-management *ngIf="this.commonService.checkConfidentialityStatus !== 'No'">
+
+
+
+
+https://zyconnect.webex.com/join/dewdrops.team
+
+
+
+
+tenant id  = 50179423-93a1-4dd9-8062-5ba7b7f6cd3c
+user id = 118
+
+
+
+
+
+User Name :Gyanesh.kumar@zycus.com 
+Password:Pass@123
+http://ddicontract-dev.zycus.net/
+192.168.15.198:83
+  qc
+  -------------
+  http://ddicontract-qc.zycus.net
+10.121.0.230:80
+User Name :salesforce.user@zycus.com 
+Password:Pass@123456
+________________________________________
+User Name :salesforce1@zycus.com 
+Password:Pass@123456
